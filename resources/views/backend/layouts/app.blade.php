@@ -447,6 +447,8 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
+
+ <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>  -->
 <script src="{{ asset('assets/backend/libs/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('assets/backend/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
@@ -464,7 +466,7 @@
 <!-- ChartJS -->
 <script src="{{ asset('assets/backend/libs/chart.js/Chart.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('assets/backend/js/pages/dashboard2.js') }}"></script>
+<!-- <script src="{{ asset('assets/backend/js/pages/dashboard2.js') }}"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('assets/backend/js/demo.js') }}"></script>
 

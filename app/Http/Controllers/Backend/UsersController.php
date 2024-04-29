@@ -30,9 +30,10 @@ class UsersController extends Controller
     public function index(Request $request)
     { 
         if ($request->ajax()) {
-            $perPage = 10;
-            $data = User::whereNull('deleted_at')->get();
+            $limit = 10;
+            $data = User::whereNull('deleted_at')->limit($limit);
             //$btn = '';
+            // $data = $query->offset($data)->limit($limit);
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('phone', function($data){ 
@@ -49,10 +50,10 @@ class UsersController extends Controller
                                 </button>
                                 <ul class="dropdown-menu"> 
 
-                                    <li><a href="javascript:void(0)" data-id="'.$data->email.'_'.$data->name.'" id="email_send" data-toggle="modal" data-target="#modal-default">Mail Send</a></li>
+                                    <li><a href="#" data-id="'.$data->email.'_'.$data->name.'" id="email_send" data-toggle="modal" data-target="#modal-default">Mail Send</a></li>
                                     <li><a href="' . route('users.show', $data->id) .'">Show</a></li>
                                     <li><a href="' . route('users.edit', $data->id) .'">Edit</a></li>
-                                    <li><a href="javascript:void(0)" data-id="'.$data->id.'" data-url="'. route('users.destroy', $data->id).'" id="destroy">Delete</a></li>
+                                    <li><a href="#" data-id="'.$data->id.'" data-url="'. route('users.destroy', $data->id).'" id="destroy">Delete</a></li>
                                 </ul>
                             </div>';
                     })
@@ -226,6 +227,7 @@ class UsersController extends Controller
             // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             $mail->send();
+            // return response()->json(['success'=>1]);
             echo 'Message has been sent';
         } catch (Exception $e) {
             // dd($e);

@@ -50,7 +50,9 @@
                 <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Email Send</h4>
             </div>
+            
             <div class="modal-body">
+                <div class="panel panel-default message_show d-none"></div> 
                 <input type="hidden" class="form-control" id="name" name="name">
                 <div class="form-group">
                     <label for="email">Email</label>
@@ -62,18 +64,19 @@
                 </div>
                 <div class="form-group">
                     <label for="message">Message Body</label>
-                    <textarea type="email" class="form-control" id="message" name="message" placeholder="Enter message"></textarea> 
+                    <textarea type="email" class="form-control" id="message" name="message" placeholder="Enter message" rows="6" cols="50"></textarea> 
                 </div>
-            </div>
+                <div class="text-center">
+                    <i class="fa fa-refresh fa-spin loading-option d-none"></i>
+                </div>
+            </div> 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="email_send_button">Send</button>
             </div>
         </div> 
     </div>
-</div>
-
-
+</div> 
 @endsection
 
 @push('scripts')
@@ -81,8 +84,13 @@
 <script type="text/javascript">
     $(function () {
         var table = $('.data-table').DataTable({
+ 
             processing: true,
             serverSide: true,
+            pageLength: 10,
+            lengthMenu: [[10, 25, 50, 100, 500, 1000], [10, 25, 50, 100, 500, 1000]],
+                // scrollX: true,
+            //"order": [[ 0, "desc" ]],
             ajax: "{{ route('users.index') }}",
 
             columns: [
@@ -96,6 +104,7 @@
     });
 
     $(document).on("click","#email_send",function() {
+        $(".loading-option").hide();
         var data = $(this).attr('data-id');
         var data = data.split('_');
         $("#email").val(data[0]);
@@ -106,7 +115,7 @@
 
 <script>
     $(document).on("click","#email_send_button",function() {
-         
+        $(".loading-option").show();
         var name =  $("#name").val();
         var email =  $("#email").val();
         var subject =  $("#subject").val();
@@ -121,15 +130,28 @@
                 subject:subject,
                 message:message
             },
-            success:function(data){
-                alert(data);
+            success: function(data){
+                // alert('Email Send Successfully'); 
+                $(".message_show").removeClass('d-none');
+                var html = "Email Send Successfully";
+                var class_name = "alert alert-success";
+                $(".message_show").html(html);
+                $(".message_show").addClass(class_name);
+                $(".loading-option").hide();
             },
             error: function(jqXHR, textStatus, errorThrown) {
-               alert(textStatus, errorThrown);
+                // alert('Something went wrong');
+                var html = "Something went wrong.";
+                var class_name = "alert alert-danger";
+                $(".message_show").html(html);
+                $(".message_show").addClass(class_name);
+                $(".loading-option").hide();
             }
+            
         });
     }); 
-    $(document).on("click","#destroy",function() { 
+    $(document).on("click","#destroy",function(e) { 
+        e.preventDefault();
         var id = $(this).attr('data-id');
         var userURL = $(this).data('url');
         Swal.fire({
@@ -157,7 +179,9 @@
                     },
                     success:function(data){
                        // alert(data.success);
-                       table.draw();
+                       // table.draw();
+                    //    table.ajax.reload();
+                         $('.data-table').DataTable().ajax.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                        alert(textStatus, errorThrown);
@@ -169,9 +193,9 @@
                 result.dismiss === Swal.DismissReason.cancel
             ) {
                 Swal.fire({
-                title: "Cancelled",
-                text: "Your imaginary file is safe :)",
-                icon: "error"
+                    title: "Cancelled",
+                    text: "Your imaginary file is safe :)",
+                    icon: "error"
                 });
             }
         });
