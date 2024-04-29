@@ -22,5 +22,6 @@ Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\Backend\DashboardController::class, 'index'])->name('home');
 Route::resource('users', App\Http\Controllers\Backend\UsersController::class);
-   
+Route::post('user/mail/send', [App\Http\Controllers\Backend\UsersController::class,'user_mail_send'])->name('user.mail.send');
+
 // Route::resource('users', ItemController::class);

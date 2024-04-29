@@ -29,6 +29,10 @@ class UsersDataTable extends DataTable
                     ->minifiedAjax()
                     ->orderBy(1)
                     ->selectStyleSingle()
+
+                    ->addColumn('action', function($row) {
+                        return '<a href="viewformdetails/'.$row->id.'" class="btn btn-success btn-xs">Form Details</a>';
+                    })
                     // ->addColumn('action',function ($data){
                     //     return $this->getActionColumn($data);
                     // })
@@ -58,7 +62,7 @@ class UsersDataTable extends DataTable
             Column::make('phone'),
             Column::make('created_at'),
             Column::make('updated_at'),
-            //Column::make('action'),
+            Column::make('action'),
         ];
     }
 
