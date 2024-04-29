@@ -25,15 +25,12 @@ class UsersController extends Controller
     }
     /**
      * Display a listing of the resource.
-     */
-
+    */
     public function index(Request $request)
     { 
         if ($request->ajax()) {
             $limit = 10;
             $data = User::whereNull('deleted_at')->limit($limit);
-            //$btn = '';
-            // $data = $query->offset($data)->limit($limit);
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('phone', function($data){ 
@@ -48,10 +45,8 @@ class UsersController extends Controller
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Action <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu"> 
-
+                                <ul class="dropdown-menu">
                                     <li><a href="#" data-id="'.$data->email.'_'.$data->name.'" id="email_send" data-toggle="modal" data-target="#modal-default">Mail Send</a></li>
-                                    <li><a href="' . route('users.show', $data->id) .'">Show</a></li>
                                     <li><a href="' . route('users.edit', $data->id) .'">Edit</a></li>
                                     <li><a href="#" data-id="'.$data->id.'" data-url="'. route('users.destroy', $data->id).'" id="destroy">Delete</a></li>
                                 </ul>
@@ -186,14 +181,6 @@ class UsersController extends Controller
 
     public function user_mail_send(Request $request)
     {
-        //dd($request->all());
-
-        // require 'path/to/PHPMailer/src/Exception.php';
-        // require 'path/to/PHPMailer/src/PHPMailer.php';
-        // require 'path/to/PHPMailer/src/SMTP.php';
-
-        //require 'vendor/autoload.php';
-
         $mail = new PHPMailer(true);
 
         try {
@@ -233,7 +220,6 @@ class UsersController extends Controller
             // dd($e);
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
-
     }
     
 

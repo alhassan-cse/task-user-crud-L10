@@ -11,7 +11,6 @@
       display: block;
       z-index: 1;
     }
-
     .example-modal .modal {
       background: transparent !important;
     }
@@ -50,7 +49,6 @@
                 <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Email Send</h4>
             </div>
-            
             <div class="modal-body">
                 <div class="panel panel-default message_show d-none"></div> 
                 <input type="hidden" class="form-control" id="name" name="name">
@@ -84,15 +82,11 @@
 <script type="text/javascript">
     $(function () {
         var table = $('.data-table').DataTable({
- 
             processing: true,
             serverSide: true,
             pageLength: 10,
             lengthMenu: [[10, 25, 50, 100, 500, 1000], [10, 25, 50, 100, 500, 1000]],
-                // scrollX: true,
-            //"order": [[ 0, "desc" ]],
             ajax: "{{ route('users.index') }}",
-
             columns: [
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},
@@ -105,6 +99,7 @@
 
     $(document).on("click","#email_send",function() {
         $(".loading-option").hide();
+        $(".message_show").hide();
         var data = $(this).attr('data-id');
         var data = data.split('_');
         $("#email").val(data[0]);
@@ -131,7 +126,6 @@
                 message:message
             },
             success: function(data){
-                // alert('Email Send Successfully'); 
                 $(".message_show").removeClass('d-none');
                 var html = "Email Send Successfully";
                 var class_name = "alert alert-success";
@@ -140,14 +134,12 @@
                 $(".loading-option").hide();
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                // alert('Something went wrong');
                 var html = "Something went wrong.";
                 var class_name = "alert alert-danger";
                 $(".message_show").html(html);
                 $(".message_show").addClass(class_name);
                 $(".loading-option").hide();
             }
-            
         });
     }); 
     $(document).on("click","#destroy",function(e) { 
@@ -166,7 +158,7 @@
             if (result.isConfirmed) {
                 Swal.fire({
                     title: "Deleted!",
-                    text: "Your file has been deleted.",
+                    text: "Your user has been deleted.",
                     icon: "success"
                 });
                 $.ajax({
@@ -178,10 +170,7 @@
                         id:id
                     },
                     success:function(data){
-                       // alert(data.success);
-                       // table.draw();
-                    //    table.ajax.reload();
-                         $('.data-table').DataTable().ajax.reload();
+                        $('.data-table').DataTable().ajax.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                        alert(textStatus, errorThrown);
@@ -194,7 +183,7 @@
             ) {
                 Swal.fire({
                     title: "Cancelled",
-                    text: "Your imaginary file is safe :)",
+                    text: "Your user is safe :)",
                     icon: "error"
                 });
             }
@@ -202,4 +191,3 @@
     });
 </script>
 @endpush
-
