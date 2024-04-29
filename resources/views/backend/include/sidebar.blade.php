@@ -21,7 +21,7 @@
 
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview menu-open">
+        <li>
             <a href="{{ route('home') }}">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
