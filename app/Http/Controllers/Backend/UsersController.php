@@ -103,10 +103,13 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $validation = $this->store_validation_rules($request->all());
-        if($validation->fails()){
-            return redirect()->back()->withErrors($validation)->withInput();
-        }
+        // dd($request->all());
+        // $validation = $this->store_validation_rules($request->all());
+        // if($validation->fails()){
+        //     // return redirect()->back()->withErrors($validation)->withInput();
+        //     return response()->json(['error'=>1]);
+        // }
+        
         // dd($request->all());
         $user = User::create([
             'name' => $request->name,
@@ -114,7 +117,14 @@ class UsersController extends Controller
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
-        return redirect()->route('users.index')->with('success', 'User has been created successfully.');
+        if($user){
+            return response()->json(['val'=>1]);
+        }
+        else{
+            return response()->json(['val'=>0]);
+        }
+        
+        // return redirect()->route('users.index')->with('success', 'User has been created successfully.');
     }
 
     /**
@@ -154,10 +164,10 @@ class UsersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validation = $this->update_validation_rules($request->all());
-        if($validation->fails()){
-            return redirect()->back()->withErrors($validation)->withInput();
-        }
+        // $validation = $this->update_validation_rules($request->all());
+        // if($validation->fails()){
+        //     return redirect()->back()->withErrors($validation)->withInput();
+        // }
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -170,8 +180,15 @@ class UsersController extends Controller
                 return redirect()->back()->with('error', 'Password does\'t match.');
             }
         }
+
         $user->save();
-        return redirect()->route('users.index')->with('success', 'User has been updated successfully.');
+        if($user){
+            return response()->json(['val'=>1]);
+        }
+        else{
+            return response()->json(['val'=>0]);
+        }
+        // return redirect()->route('users.index')->with('success', 'User has been updated successfully.');
     }
 
     /**

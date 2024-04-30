@@ -169,9 +169,9 @@
                 $(".message_show").show();
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                var html = "Something went wrong.";
+                var message_text = "Something went wrong.";
                 var class_name = "alert alert-danger";
-                $(".message_show").html(html);
+                $(".message_show").html(message_text);
                 $(".message_show").addClass(class_name);
                 $(".loading-option").hide();
                 $(".message_show").show();
