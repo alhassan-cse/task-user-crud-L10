@@ -11,6 +11,11 @@
     color:red;
 }
 </style>
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 <div class="row">
     <div class="col-md-6">
         <div class="box box-primary">
@@ -24,7 +29,7 @@
  
                     <div class="form-group">
                         <label for="name">Name <span class="text-red">*</span></label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Enter name" value="{{ $user->name }}">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Enter name" value="{{ $user->name }}" required>
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -33,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Email address <span class="text-red">*</span></label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Enter email" value="{{ $user->email }}">
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Enter email" value="{{ $user->email }}" required> 
                         @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -42,7 +47,7 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone <span class="text-red">*</span></label>
-                        <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Enter phone" value="{{ $user->phone }}">
+                        <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Enter phone" value="{{ $user->phone }}" required>
                         @error('phone')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -60,7 +65,7 @@
                     </div>
                     <div class="form-group">
                         <label for="confirmed_password">Confirmed Password <span class="text-red">*</span></label>
-                        <input type="password" class="form-control @error('confirmed_password') is-invalid @enderror" id="confirmed_password" name="confirmed_password" placeholder="Enter confirmed password" required>
+                        <input type="password" class="form-control @error('confirmed_password') is-invalid @enderror" id="confirmed_password" name="confirmed_password" placeholder="Enter confirmed password">
                         @error('confirmed_password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

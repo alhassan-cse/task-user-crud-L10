@@ -163,7 +163,12 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
         if($request->password){
-            $user->password = Hash::make($request->password);
+            if($request->password == $request->confirmed_password){
+                $user->password = Hash::make($request->password);
+            }
+            else{
+                return redirect()->back()->with('error', 'Password does\'t match.');
+            }
         }
         $user->save();
         return redirect()->route('users.index')->with('success', 'User has been updated successfully.');
