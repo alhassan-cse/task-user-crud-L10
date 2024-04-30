@@ -50,19 +50,22 @@
                 <h4 class="modal-title">Email Send</h4>
             </div>
             <div class="modal-body">
-                <div class="panel panel-default message_show d-none"></div> 
+                <div class="panel panel-default message_show"></div> 
                 <input type="hidden" class="form-control" id="name" name="name">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="text" class="form-control" id="email" name="email" placeholder="Enter email">
+                    <span class="email-invalid-feedback text-danger" role="alert"></span>
                 </div>
                 <div class="form-group">
                     <label for="subject">Subject</label>
                     <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter subject">
+                    <span class="subject-invalid-feedback text-danger" role="alert"></span>
                 </div>
                 <div class="form-group">
                     <label for="message">Message Body</label>
-                    <textarea type="email" class="form-control" id="message" name="message" placeholder="Enter message" rows="6" cols="50"></textarea> 
+                    <textarea type="email" class="form-control" id="message" name="message" placeholder="Enter message" rows="6" cols="50"></textarea>
+                    <span class="message-invalid-feedback text-danger" role="alert"></span>
                 </div>
                 <div class="text-center">
                     <i class="fa fa-refresh fa-spin loading-option d-none"></i>
@@ -115,6 +118,38 @@
         var email =  $("#email").val();
         var subject =  $("#subject").val();
         var message =  $("#message").val();
+        
+        if(email==''){
+            var email_text = "Email is required";
+            $(".email-invalid-feedback").html(email_text);
+            return false;
+        }
+        else{
+            var email_text = "";
+            $(".email-invalid-feedback").html(email_text);
+        }
+        
+        if(subject==''){
+            var subject_text = "Subject is required";
+            $(".subject-invalid-feedback").html(subject_text);
+            return false;
+        }
+        else{
+             var subject_text = "";
+             $(".subject-invalid-feedback").html(subject_text);
+        }
+        
+        
+        if(message==''){
+            var message_text = "Message is required";
+            $(".message-invalid-feedback").html(message_text);
+            return false;
+        }
+        else{
+             var message_text = "";
+             $(".message-invalid-feedback").html(message_text);
+        }
+        
         $.ajax({
             url:"{{ route('user.mail.send') }}",
             method:"POST",
@@ -126,12 +161,12 @@
                 message:message
             },
             success: function(data){
-                $(".message_show").removeClass('d-none');
-                var html = "Email Send Successfully";
+                var message_text = "Email Send Successfully";
                 var class_name = "alert alert-success";
-                $(".message_show").html(html);
+                $(".message_show").html(message_text);
                 $(".message_show").addClass(class_name);
                 $(".loading-option").hide();
+                $(".message_show").show();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var html = "Something went wrong.";
@@ -139,6 +174,7 @@
                 $(".message_show").html(html);
                 $(".message_show").addClass(class_name);
                 $(".loading-option").hide();
+                $(".message_show").show();
             }
         });
     }); 
