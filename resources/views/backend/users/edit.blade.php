@@ -55,7 +55,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="password">Password <span class="text-red">*</span></label>
+                        <label for="password">Password</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Enter password">
                         @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -64,7 +64,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="confirmed_password">Confirmed Password <span class="text-red">*</span></label>
+                        <label for="confirmed_password">Confirmed Password</label>
                         <input type="password" class="form-control @error('confirmed_password') is-invalid @enderror" id="confirmed_password" name="confirmed_password" placeholder="Enter confirmed password">
                         @error('confirmed_password')
                             <span class="invalid-feedback" role="alert">
