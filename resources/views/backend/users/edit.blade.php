@@ -23,7 +23,7 @@
                 <div class="box-body">
  
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Name <span class="text-red">*</span></label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Enter name" value="{{ $user->name }}">
                         @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="email">Email address</label>
+                        <label for="email">Email address <span class="text-red">*</span></label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Enter email" value="{{ $user->email }}">
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -41,8 +41,8 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone</label>
-                        <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Enter phone" value="{{ $user->phone }}">
+                        <label for="phone">Phone <span class="text-red">*</span></label>
+                        <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Enter phone" value="{{ $user->phone }}">
                         @error('phone')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -50,9 +50,18 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-red">*</span></label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Enter password">
                         @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmed_password">Confirmed Password <span class="text-red">*</span></label>
+                        <input type="password" class="form-control @error('confirmed_password') is-invalid @enderror" id="confirmed_password" name="confirmed_password" placeholder="Enter confirmed password" required>
+                        @error('confirmed_password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
